@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flask-starter
+spec:
+  containers:
+    - name: flask-starter
+      image: rohit20001221/flask-starter:latest
+      ports:
+        - containerPort: 80
