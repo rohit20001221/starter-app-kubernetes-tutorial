@@ -1,0 +1,46 @@
+# deployment and service for mysql
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-pod # deployment knows which app to select with the match label
+  template:
+    metadata:
+      labels:
+        app: mysql-pod
+    spec:
+      containers:
+        - name: mysql
+          image: alpine/mysql # docker container image
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret #name of the secret map
+                  key: mysql-password #key for the secret
+            - name: MSQL_DATABASE
+              valueFrom:
+                configKeyRef:
+                  name: mysql-config
+                  key: mysql-db-name
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app.kubernetes.io/name: mysql-pod # match the label of the pods
+  ports:
+    - protocol: TCP
+      port: 3306 # port of the service
+      targetPort: 3306 # port of the pod
