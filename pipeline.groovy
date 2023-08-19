@@ -4,11 +4,10 @@ pipeline {
     stages {
         stage('Pull Repository') {
             steps {
-                // git credentialsId: 'GIT_HUB_CREDENTIAL', url: 'https://github.com/rohit20001221/starter-app-kubernetes-tutorial.git'
-                git branch: 'staging', credentialsId: 'GIT_HUB_CREDENTIAL', url: 'https://github.com/rohit20001221/starter-app-kubernetes-tutorial.git'
+                git credentialsId: 'GIT_HUB_CREDENTIAL', url: 'https://github.com/rohit20001221/starter-app-kubernetes-tutorial.git'
             }
         }
-        
+    
         stage('Run Unit Tests') {
             steps {
                 sh '''python3 -m unittest'''
