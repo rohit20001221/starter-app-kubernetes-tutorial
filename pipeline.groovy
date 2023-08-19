@@ -20,7 +20,7 @@ pipeline {
             }
         }
         
-        stage('Build the Docker file') {
+        stage('Build the Docker file.') {
             steps {
                 sh "./build-docker.sh"    
             }
