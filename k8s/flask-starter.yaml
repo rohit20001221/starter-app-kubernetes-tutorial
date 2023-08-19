@@ -37,19 +37,4 @@ spec:
       nodePort: 30000
 
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: flask-starter-ingress
-spec:
-  rules:
-    - host: "jenkins.lazyprogrammer.world"
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: flask-starter
-                port:
-                  number: 80
+
