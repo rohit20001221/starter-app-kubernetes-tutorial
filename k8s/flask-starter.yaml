@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: flask-starter
-          image: rohit20001221/flask-starter:latest
+          image: rohit20001221/flask-starter:raspberrypi
           ports:
             - containerPort: 80
 
@@ -27,13 +27,28 @@ kind: Service
 metadata:
   name: flask-starter
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: flask
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 8080
 
 ---
-
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-starter-ingress
+spec:
+  rules:
+    - host: "jenkins.lazyprogrammer.world"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: flask-starter
+                port:
+                  number: 8080
