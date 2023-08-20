@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.kafka.annotation.KafkaListener;
 
-import com.lazyprogrammer.notificationservice.events.Notification;
+import com.lazyprogrammer.notificationservice.events.TodoItemCreatedEvent;
 
 @SpringBootApplication
 public class NotificationserviceApplication {
@@ -14,7 +14,7 @@ public class NotificationserviceApplication {
 	}
 
 	@KafkaListener(topics = "item-created") 
-	public void listen(Notification item){
-		System.out.println("item created:" + item.getId().toString());
+	public void listen(TodoItemCreatedEvent item){
+		System.out.println("item created:" + item.getTodoItemId().toString());
 	}
 }
