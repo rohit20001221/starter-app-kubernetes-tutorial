@@ -21,28 +21,28 @@ spec:
           ports:
             - containerPort: 80
           env:
-            - name: MYSQL_USER_NAME
+            - name: POSTGRES_USER
               valueFrom:
-                configKeyRef:
-                  name: mysql-config
-                  key: mysql-user-name
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres-user
 
-            - name: MYSQL_PASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-secret
-                  key: mysql-password
+                  name: postgres-secret
+                  key: postgres-password
 
-            - name: MYSQL_HOST
+            - name: POSTGRES_HOST
               valueFrom:
-                configKeyRef:
-                  name: mysql-config
-                  key: mysql-db-url
-            - name: MYSQL_DB
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres-db-url
+            - name: POSTGRES_DB
               valueFrom:
-                configKeyRef:
-                  name: mysql-config
-                  key: mysql-db-name
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres-db-name
 
 ---
 apiVersion: v1

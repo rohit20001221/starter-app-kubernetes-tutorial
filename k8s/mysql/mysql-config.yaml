@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-config
-data:
-  mysql-db-url: mysql-service
-  mysql-db-name: todo_list

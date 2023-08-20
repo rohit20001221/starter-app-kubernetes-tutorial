@@ -1,0 +1,51 @@
+# deployment and service for mysql
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgre-deployment
+  labels:
+    app: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-pod # deployment knows which app to select with the match label
+  template:
+    metadata:
+      labels:
+        app: postgres-pod
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:alpine # docker container image
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret #name of the secret map
+                  key: postgres-password #key for the secret
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres-db-name
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres-user
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  selector:
+    app.kubernetes.io/name: postgres-pod # match the label of the pods
+  ports:
+    - protocol: TCP
+      port: 5432 # port of the service
+      targetPort: 5432 # port of the pod
