@@ -19,7 +19,8 @@ import org.springframework.stereotype.Service;
 public class TodoService {
 
   private final TodoItemRepository todoItemRepository;
-    private final SubTaskRepository subTaskRepository;
+  private final SubTaskRepository subTaskRepository;
+
 
   public void createTodoItem(TodoItemRequest todoItemRequest) {
     TodoItem todoItem = TodoItem
@@ -46,7 +47,7 @@ public class TodoService {
     TodoItem item = todoItemRepository.findById(id).orElse(null);
 
     if (item != null) {
-        return this.mapToTodoItemResponse(item);
+      return this.mapToTodoItemResponse(item);
     }
 
     return null;
@@ -56,13 +57,13 @@ public class TodoService {
     boolean item = todoItemRepository.existsById(id);
 
     if (item) {
-        SubTask _subTask = SubTask
+      SubTask _subTask = SubTask
         .builder()
         .todoItemId(id)
         .name(subTask.getName())
         .build();
 
-        subTaskRepository.save(_subTask);
+      subTaskRepository.save(_subTask);
     }
   }
 
