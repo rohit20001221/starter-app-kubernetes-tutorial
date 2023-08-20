@@ -17,6 +17,8 @@ db_uri = (
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 
+print(db_uri)
+
 db = SQLAlchemy(app)
 
 
