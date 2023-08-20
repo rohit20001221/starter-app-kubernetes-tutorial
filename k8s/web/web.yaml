@@ -38,6 +38,11 @@ spec:
                 configKeyRef:
                   name: mysql-config
                   key: mysql-db-url
+            - name: MYSQL_DB
+              valueFrom:
+                configKeyRef:
+                  name: mysql-config
+                  key: mysql-db-name
 
 ---
 apiVersion: v1
