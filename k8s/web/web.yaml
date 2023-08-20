@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: flask-pod
-          image: rohit20001221/flask-starter:raspberrypi
+          image: rohit20001221/flask-starter
           ports:
             - containerPort: 80
           env:
