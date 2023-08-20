@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lazyprogrammer.todoservice.dto.SubTaskRequest;
 import com.lazyprogrammer.todoservice.dto.TodoItemRequest;
 import com.lazyprogrammer.todoservice.dto.TodoItemResponse;
 import com.lazyprogrammer.todoservice.service.TodoService;
@@ -37,5 +38,11 @@ public class TodoServiceController {
     @GetMapping("/{id}")
     public TodoItemResponse getTodoItem(@PathVariable Long id) {
         return todoService.getTodoItem(id);
+    }
+
+    @PostMapping("/{id}/createSubTask")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createSubTask(@PathVariable Long id, @RequestBody SubTaskRequest subTaskRequest){
+        todoService.createSubTask(id, subTaskRequest);
     }
 }
