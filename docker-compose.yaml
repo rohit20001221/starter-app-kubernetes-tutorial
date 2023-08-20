@@ -15,14 +15,15 @@ services:
       - POSTGRES_USER=flask
       - POSTGRES_DB=todo_list
       - POSTGRES_HOST=db
-    restart: always
-    ports:
-      - 8080:80
     volumes:
-      - ./:/app
+      - ./todoservice:/app
+    ports:
+      - 8002:80
   notificationservice:
     build:
       context: ./notificationservice
+    volumes:
+      - ./notificationservice:/app
   kafka:
     image: "bitnami/kafka:latest"
     environment:
