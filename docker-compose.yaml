@@ -7,9 +7,9 @@ services:
       - POSTGRES_DB=todo_list
     ports:
       - 5432:5432
-  web:
+  todoservice:
     build:
-      context: ./flask
+      context: ./todoservice
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=flask
@@ -20,6 +20,9 @@ services:
       - 8080:80
     volumes:
       - ./:/app
+  notificationservice:
+    build:
+      context: ./notificationservice
   kafka:
     image: "bitnami/kafka:latest"
     environment:
